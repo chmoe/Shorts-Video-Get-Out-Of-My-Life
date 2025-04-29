@@ -11,6 +11,7 @@ let userSettings = {
 let todayCount = 0;
 let hasBlocked = false;
 let observer = null;
+let homeObserver = null;  // 🔥 新增：监听首页变化
 
 function loadSettingsAndData(callback) {
     chrome.storage.local.get(['settings', 'shortsData'], (result) => {
@@ -137,6 +138,46 @@ function startObservingShorts() {
     });
 }
 
+// 屏蔽首页 Shorts
+function blockHomeShorts() {
+    if (!userSettings.blockHomeShorts) {
+        console.log('🔕 blockHomeShorts 开关关闭，不处理');
+        return;
+    }
+
+    const sections = document.querySelectorAll('ytd-rich-section-renderer');
+
+    sections.forEach(section => {
+        const shelf = section.querySelector('ytd-rich-shelf-renderer[is-shorts]');
+        if (shelf) {
+            console.log('🚫 检测到首页 Shorts 区块，正在隐藏...');
+            section.style.display = 'none';
+        }
+    });
+}
+
+// 持续监听首页变化
+function observeHomePage() {
+    if (homeObserver) homeObserver.disconnect();
+
+    homeObserver = new MutationObserver(() => {
+        if (window.location.pathname === "/" && userSettings.blockHomeShorts) {
+            blockHomeShorts();
+        }
+    });
+
+    homeObserver.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+
+    // 页面首次加载时
+    if (window.location.pathname === "/" && userSettings.blockHomeShorts) {
+        blockHomeShorts();
+    }
+}
+
+
 function patchHistory() {
     const _pushState = history.pushState;
     const _replaceState = history.replaceState;
@@ -161,12 +202,17 @@ function checkUrlChange() {
     if (url.includes('/shorts/')) {
         console.log('🎬 进入 Shorts 页面，开始观察 DOM');
         startObservingShorts();
+    } else if (url === 'https://www.youtube.com/' || url === 'https://www.youtube.com') {
+        console.log('🏠 在首页，准备屏蔽 Shorts 区块');
+        observeHomePage();
     } else {
         if (observer) observer.disconnect();
+        if (homeObserver) homeObserver.disconnect();
         hasBlocked = false;
     }
 }
 
+// 启动
 loadSettingsAndData(() => {
     patchHistory();
     checkUrlChange();
