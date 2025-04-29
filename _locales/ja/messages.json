@@ -1,0 +1,83 @@
+{
+    "extension_name": {
+      "message": "YouTube Shorts ブロッカー"
+    },
+    "extension_description": {
+      "message": "Shortsの視聴を抑えて、集中力を維持しましょう！"
+    },
+    "block_home_shorts": {
+      "message": "ホーム画面の Shorts セクションをブロック"
+    },
+    "pause_shorts_video": {
+      "message": "Shorts の自動再生を停止"
+    },
+    "open_settings": {
+      "message": "設定ページを開く"
+    },
+    "shorts_play_limit_label": {
+      "message": "Shorts の1日あたりの再生上限"
+    },
+    "auto_block_home_after_limit": {
+      "message": "上限に達したらホーム画面の Shorts をブロック"
+    },
+    "auto_pause_after_limit": {
+      "message": "上限に達したら Shorts の再生を停止"
+    },
+    "redirect_option_label": {
+      "message": "Shorts の視聴制限に達した後の動作"
+    },
+    "redirect_close_tab": {
+      "message": "現在のタブを閉じる"
+    },
+    "redirect_home": {
+      "message": "YouTube ホームにリダイレクト"
+    },
+    "redirect_custom": {
+      "message": "カスタムページにリダイレクト"
+    },
+    "custom_url_label": {
+      "message": "カスタムリダイレクト URL"
+    },
+    "shorts_stats_today": {
+      "message": "今日の Shorts 視聴回数："
+    },
+    "shorts_stats_total_time": {
+      "message": "合計視聴時間："
+    },
+    "save_success": {
+      "message": "✅ 設定が正常に保存されました"
+    },
+    "invalid_url_warning": {
+      "message": "❌ 有効な URL を入力してください（http または https で始まる必要があります）"
+    },
+    "disabled_section_message": {
+      "message": "無効（「Shorts の自動再生を停止」が有効になっています）"
+    },
+    "floating_message": {
+      "message": "🚫 Shorts を見るのはやめて、仕事に戻りましょう！"
+    },
+    "shorts_stats_message": {
+      "message": "今日の Shorts 視聴回数：$COUNT$ 回、合計時間：$MINUTES$ 分",
+      "placeholders": {
+        "count": {
+          "content": "$1"
+        },
+        "minutes": {
+          "content": "$2"
+        }
+      }
+    },
+    "max_times_disabled_warning": {
+      "message": "⚠️「Shorts の自動再生を停止」が有効なため、上限設定は利用できません"
+    },
+    "max_times_hint": {
+      "message": "0 は無制限を意味します。1以上で制限が有効になります。"
+    },
+    "control_not_ready_skip_load": {
+      "message": "⚠️ コントロールが準備できていないため、設定の読み込みをスキップします"
+    },
+    "custom_url_placeholder": {
+      "message": "例：https://www.google.com/"
+    }
+  }
+  

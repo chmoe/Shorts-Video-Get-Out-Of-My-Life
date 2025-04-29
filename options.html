@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title id="optionsTitle">Shorts Blocker 设置</title>
+  <style>
+    :root {
+      --bg-color: #f9fafb;
+      --text-color: #333;
+      --input-bg: #fff;
+      --input-border: #ccc;
+      --primary-color: #007bff;
+      --primary-hover: #0056d2;
+      --success-color: #28a745;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #121212;
+        --text-color: #eee;
+        --input-bg: #1e1e1e;
+        --input-border: #444;
+        --primary-color: #3399ff;
+        --primary-hover: #2277cc;
+        --success-color: #66bb6a;
+      }
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: var(--input-bg);
+      border-radius: 12px;
+      padding: 24px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    input[type="number"],
+    input[type="text"],
+    select {
+      padding: 10px;
+      font-size: 15px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 6px;
+      color: var(--text-color);
+    }
+
+    input[type="number"]:focus,
+    input[type="text"]:focus,
+    select:focus {
+      border-color: var(--primary-color);
+      outline: none;
+    }
+
+    .inline-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .switch-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--input-border);
+    }
+
+    .switch-label {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .hint {
+      margin-top: 5px;
+      font-size: 12px;
+      color: gray;
+    }
+
+    #toast {
+      position: fixed;
+      top: 20px;
+      background: var(--success-color);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 1000;
+      font-size: 15px;
+    }
+
+
+    /* 滑动开关 */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 42px;
+      height: 22px;
+      vertical-align: middle;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #bbb;
+      transition: 0.4s;
+      border-radius: 22px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked+.slider {
+      background-color: var(--primary-color);
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(20px);
+    }
+
+    .disabled-section {
+      opacity: 0.6;
+      pointer-events: none;
+      position: relative;
+    }
+
+    .disabled-section::after {
+      content: attr(data-disabled-message);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: rgba(0, 0, 0, 0.7);
+      background: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 8px;
+      animation: floatUpDown 2s infinite ease-in-out;
+    }
+
+    /* 新增的浮动动画 */
+    @keyframes floatUpDown {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+    .stats-card {
+      margin-bottom: 20px;
+      font-size: 16px;
+      background: var(--input-bg);
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      color: var(--text-color);
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1 id="extensionName">Shorts Blocker 设置</h1>
+  <div class="stats-card" id="shortsStats">
+    今日 Shorts 播放次数：-- 次，总消耗时间：-- 分钟
+  </div>
+
+  <div class="card">
+
+    <div class="switch-group">
+      <label style="display: flex; justify-content: space-between; align-items: center; width: 100%; cursor: pointer;">
+        <span class="switch-label" id="labelBlockHomeShorts">屏蔽首页 Shorts 区块</span>
+        <div class="switch">
+          <input type="checkbox" id="blockHomeShorts">
+          <span class="slider"></span>
+        </div>
+      </label>
+    </div>
+
+    <div class="switch-group">
+      <label style="display: flex; justify-content: space-between; align-items: center; width: 100%; cursor: pointer;">
+        <span class="switch-label" id="labelPauseShortsVideo">阻止 Shorts 页面自动播放</span>
+        <div class="switch">
+          <input type="checkbox" id="pauseShortsVideo">
+          <span class="slider"></span>
+        </div>
+      </label>
+    </div>
+
+    <!-- ✅ 把每日最大打开次数挪到阻止播放开关下面 -->
+
+    <div class="form-group" id="maxTimesGroup">
+      <!-- 新增 id -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-top: 8px;">
+        <label id="shortsPlayLimitLabel" for="maxTimes" style="flex-shrink: 0;">每日最大打开 Shorts 次数：</label>
+        <input type="number" id="maxTimes" min="0" placeholder="0表示不限次数" style="width: 100px;">
+      </div>
+
+      <div class="hint" id="autoBlockHomeWhenLimit">0表示不限次数，大于0才开启次数限制。</div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px;">
+        <label style="display: flex; align-items: center;" title="超过最大次数后，自动隐藏首页的 Shorts 推荐区块">
+          <input type="checkbox" style="margin-right: 4px;">
+          <span id="labelAutoBlockHome">到达上限后屏蔽首页Shorts</span>
+        </label>
+
+        <label style="display: flex; align-items: center;" title="超过最大次数后，自动阻止 Shorts 页面的视频播放">
+          <input type="checkbox" id="autoPauseShortsWhenLimit" style="margin-right: 4px;">
+          <span id="labelAutoPauseShorts">到达上限后阻止播放</span>
+        </label>
+      </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+      <label id="redirectOptionLabel" for="redirectOption">Shorts 页面提示后操作：</label>
+      <select id="redirectOption">
+        <option value="close" id="redirectCloseTab">关闭当前标签页</option>
+        <option value="youtube_home" id="redirectHome">跳转到YouTube首页</option>
+        <option value="custom" id="redirectCustom">跳转到自定义页面</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="customUrlGroup" style="display:none;">
+      <label id="customUrlLabel" for="customUrl">自定义跳转页面URL：</label>
+      <input type="text" id="customUrl" placeholder="例如：https://www.bilibili.com/">
+    </div>
+
+  </div>
+
+  <div id="toast">保存成功！</div>
+
+  <script src="options.js"></script>
+</body>
+
+</html>

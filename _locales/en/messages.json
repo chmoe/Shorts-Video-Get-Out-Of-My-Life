@@ -1,0 +1,82 @@
+{
+    "extension_name": {
+        "message": "YouTube Shorts Blocker"
+    },
+    "extension_description": {
+        "message": "Prevent addiction to Shorts and stay focused!"
+    },
+    "block_home_shorts": {
+        "message": "Block Shorts section on Home"
+    },
+    "pause_shorts_video": {
+        "message": "Pause Shorts auto-play"
+    },
+    "open_settings": {
+        "message": "Open Settings Page"
+    },
+    "shorts_play_limit_label": {
+        "message": "Daily Shorts Open Limit"
+    },
+    "auto_block_home_after_limit": {
+        "message": "Block Shorts on Home after limit"
+    },
+    "auto_pause_after_limit": {
+        "message": "Pause Shorts after limit"
+    },
+    "redirect_option_label": {
+        "message": "Action after reaching Shorts limit"
+    },
+    "redirect_close_tab": {
+        "message": "Close current tab"
+    },
+    "redirect_home": {
+        "message": "Redirect to YouTube Home"
+    },
+    "redirect_custom": {
+        "message": "Redirect to Custom Page"
+    },
+    "custom_url_label": {
+        "message": "Custom Redirect URL"
+    },
+    "shorts_stats_today": {
+        "message": "Today's Shorts Views:"
+    },
+    "shorts_stats_total_time": {
+        "message": "Total Time Spent:"
+    },
+    "save_success": {
+        "message": "✅ Settings saved successfully"
+    },
+    "invalid_url_warning": {
+        "message": "❌ Please enter a valid URL (must start with http or https)"
+    },
+    "disabled_section_message": {
+        "message": "Disabled (due to 'Pause Shorts auto-play' enabled)"
+    },
+    "floating_message": {
+        "message": "🚫 Stop watching Shorts! Get back to work!"
+    },
+    "shorts_stats_message": {
+        "message": "Today's Shorts views: $COUNT$ times, total time: $MINUTES$ minutes",
+        "placeholders": {
+            "count": {
+                "content": "$1"
+            },
+            "minutes": {
+                "content": "$2"
+            }
+        }
+    },
+    "max_times_disabled_warning": {
+        "message": "⚠️ 'Pause Shorts auto-play' is enabled, open limit is unavailable!"
+    },
+    "max_times_hint": {
+        "message": "0 means unlimited. Limit applies only when greater than 0."
+    },
+    "control_not_ready_skip_load": {
+        "message": "⚠️ Controls not ready, skipping settings load"
+    },
+    "custom_url_placeholder": {
+        "message": "e.g., https://www.google.com/"
+    }
+}
