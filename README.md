@@ -75,4 +75,4 @@ Pull requests, suggestions and issue reports are welcome!
 Let’s build a better YouTube experience together.
 
 ## 📜 License
-MIT License © [chmoe](https://cha.moe)
+[MIT License](/LICENSE) © [chmoe](https://cha.moe)
